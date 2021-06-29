@@ -11,22 +11,22 @@
 {% set os_filtered = salt['grains.filter_by'](os, grain = 'os') or {} %}
 # {% set osfinger_filtered = salt['grains.filter_by'](osfinger, grain = 'osfinger') or {} %}
 
-{% if defaults.conf is defined %}
-{% set conf_data = defaults.conf %}
+{% if defaults.config is defined %}
+{% set config_data = defaults.config %}
 {% else %}
-{% set conf_data = {} %}
+{% set config_data = {} %}
 {% endif %}
 
-{% if osfamily_filtered.conf is defined %}
-{% set conf_data = salt['slsutil.merge'](conf_data, osfamily_filtered.conf) %}
+{% if osfamily_filtered.config is defined %}
+{% set config_data = salt['slsutil.merge'](config_data, osfamily_filtered.config) %}
 {% endif %}
 
-{% if os_filtered.conf is defined %}
-{% set conf_data = salt['slsutil.merge'](conf_data, os_filtered.conf) %}
+{% if os_filtered.config is defined %}
+{% set config_data = salt['slsutil.merge'](config_data, os_filtered.config) %}
 {% endif %}
 
-{% if osfinger_filtered.conf is defined %}
-{% set conf_data = salt['slsutil.merge'](conf_data, osfinger_filtered.conf) %}
+{% if osfinger_filtered.config is defined %}
+{% set config_data = salt['slsutil.merge'](config_data, osfinger_filtered.config) %}
 {% endif %}
 
-{% set conf_data = salt['slsutil.merge'](conf_data, salt['pillar.get']('etcd:conf', default = {})) %}
+{% set config_data = salt['slsutil.merge'](config_data, salt['pillar.get']('etcd:config', default = {})) %}
