@@ -4,11 +4,13 @@
 
 include:
   - etcd.install
+  {%- if (etcd.pkgs is not defined) or not etcd.pkgs|length %}
   - etcd.linuxenv
      {% if etcd.docker.enabled %}
   - etcd.docker.running
      {%- else %}
   - etcd.service
+  {%- endif %}
 
 extend:
   etcd_{{ etcd.service_name }}_running:
