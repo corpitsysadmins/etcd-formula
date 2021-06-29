@@ -3,13 +3,9 @@
 
 {## Start imports as  ##}
 {% import_yaml 'etcd/defaults.yaml' as defaults %}
-# {% import_yaml 'etcd/osfamily.yaml' as osfamily %}
 {% import_yaml 'etcd/osmap.yaml' as os %}
-# {% import_yaml 'etcd/osfinger.yaml' as osfinger %}
 
-# {% set osfamily_filtered = salt['grains.filter_by'](osfamily, grain = 'os_family') or {} %}
 {% set os_filtered = salt['grains.filter_by'](os, grain = 'os') or {} %}
-# {% set osfinger_filtered = salt['grains.filter_by'](osfinger, grain = 'osfinger') or {} %}
 
 {% if defaults.config is defined %}
 {% set config_data = defaults.config %}
@@ -17,16 +13,8 @@
 {% set config_data = {} %}
 {% endif %}
 
-{% if osfamily_filtered.config is defined %}
-{% set config_data = salt['slsutil.merge'](config_data, osfamily_filtered.config) %}
-{% endif %}
-
 {% if os_filtered.config is defined %}
 {% set config_data = salt['slsutil.merge'](config_data, os_filtered.config) %}
-{% endif %}
-
-{% if osfinger_filtered.config is defined %}
-{% set config_data = salt['slsutil.merge'](config_data, osfinger_filtered.config) %}
 {% endif %}
 
 {% set config_data = salt['slsutil.merge'](config_data, salt['pillar.get']('etcd:config', default = {})) %}
