@@ -25,8 +25,10 @@ Windows:
   dl:
     format: zip
 
+CentOS:
+  pkg:
+    - etcd
 ### https://github.com/saltstack-formulas/etcd-formula/issues/26
-#CentOS:
 # docker:
 ### packages: ['python2-docker',]
 
