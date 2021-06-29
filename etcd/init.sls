@@ -30,7 +30,7 @@ extend:
      {% endif %}
   {%- endif %}
 
-{%- if etcd.conf is defined %}
+{%- if etcd.config is defined %}
 include:
   - etcd.conf
 {%- endif %}
