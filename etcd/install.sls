@@ -3,10 +3,10 @@
 
 {% from "etcd/map.jinja" import etcd with context -%}
 
-{%- if etcd.pkg|length %}
+{%- if (etcd.pkgs is defined) and etcd.pkgs|length %}
 etcd-install:
   pkg.installed:
-    - pkgs: {{ etcd.pkg }}
+    - pkgs: {{ etcd.pkgs }}
 
 etcd_service_running:
   service.running:

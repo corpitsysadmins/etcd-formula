@@ -26,7 +26,7 @@ Windows:
     format: zip
 
 CentOS:
-  pkg:
+  pkgs:
     - etcd
 ### https://github.com/saltstack-formulas/etcd-formula/issues/26
 # docker:
