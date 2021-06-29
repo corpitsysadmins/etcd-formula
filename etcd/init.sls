@@ -10,7 +10,6 @@ include:
   - etcd.docker.running
      {%- else %}
   - etcd.service
-  {%- endif %}
 
 extend:
   etcd_{{ etcd.service_name }}_running:
@@ -29,3 +28,4 @@ extend:
            {% endif %}
 
      {% endif %}
+  {%- endif %}
