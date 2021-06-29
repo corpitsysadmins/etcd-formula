@@ -1,0 +1,32 @@
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
+
+{## Start imports as  ##}
+{% import_yaml 'etcd/defaults.yaml' as defaults %}
+# {% import_yaml 'etcd/osfamily.yaml' as osfamily %}
+{% import_yaml 'etcd/osmap.yaml' as os %}
+# {% import_yaml 'etcd/osfinger.yaml' as osfinger %}
+
+# {% set osfamily_filtered = salt['grains.filter_by'](osfamily, grain = 'os_family') or {} %}
+{% set os_filtered = salt['grains.filter_by'](os, grain = 'os') or {} %}
+# {% set osfinger_filtered = salt['grains.filter_by'](osfinger, grain = 'osfinger') or {} %}
+
+{% if defaults.conf is defined %}
+{% set conf_data = defaults.conf %}
+{% else %}
+{% set conf_data = {} %}
+{% endif %}
+
+{% if osfamily_filtered.conf is defined %}
+{% set conf_data = salt['slsutil.merge'](conf_data, osfamily_filtered.conf) %}
+{% endif %}
+
+{% if os_filtered.conf is defined %}
+{% set conf_data = salt['slsutil.merge'](conf_data, os_filtered.conf) %}
+{% endif %}
+
+{% if osfinger_filtered.conf is defined %}
+{% set conf_data = salt['slsutil.merge'](conf_data, osfinger_filtered.conf) %}
+{% endif %}
+
+{% set conf_data = salt['slsutil.merge'](conf_data, salt['pillar.get']('etcd:conf', default = {})) %}

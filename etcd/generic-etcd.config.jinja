@@ -1,0 +1,6 @@
+{% macro simple_config(key_value_pairs) -%}
+ {%- for key in key_value_pairs %}
+{{ key ~ '="' ~ key_value_pairs[key] ~ '"' }}
+ {%- endfor %}
+{% endmacro -%}
+{{ simple_config(content) }}

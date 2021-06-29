@@ -28,6 +28,9 @@ Windows:
 CentOS:
   pkgs:
     - etcd
+  config_file: /etc/etcd/etcd.conf
+  config:
+    ETCD_DATA_DIR: /var/lib/etcd/default.etcd
 ### https://github.com/saltstack-formulas/etcd-formula/issues/26
 # docker:
 ### packages: ['python2-docker',]
