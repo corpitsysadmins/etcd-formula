@@ -4,33 +4,6 @@
 
 include:
   - etcd.install
-  {%- if (etcd.pkgs is not defined) or not etcd.pkgs|length %}
-  - etcd.linuxenv
-     {% if etcd.docker.enabled %}
-  - etcd.docker.running
-     {%- else %}
-  - etcd.service
-
-extend:
-  etcd_{{ etcd.service_name }}_running:
-    service:
-      - listen:
-           {% if etcd.use_upstream_repo|lower == 'homebrew' %}
-        - file: etcd-install
-           {% else %}
-        - archive: etcd-install
-           {% endif %}
-      - require:
-           {% if etcd.use_upstream_repo|lower == 'homebrew' %}
-        - file: etcd-install
-           {% else %}
-        - archive: etcd-install
-           {% endif %}
-
-     {% endif %}
-  {%- endif %}
-
-{%- if etcd.config is defined %}
-include:
+  {%- if etcd.config is defined %}
   - etcd.conf
-{%- endif %}
+  {%- endif %}
