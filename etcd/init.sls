@@ -29,3 +29,8 @@ extend:
 
      {% endif %}
   {%- endif %}
+
+{%- if etcd.conf is defined %}
+include:
+  - etcd.conf
+{%- endif %}
