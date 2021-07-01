@@ -10,7 +10,7 @@
       content: {{ config_data }}
     - mode: 644
     - user: root
-    - group: root
+    - group: {{ etcd.posix_group }}
 
 {% if (etcd.certs is defined) and etcd.certs|length -%}
 {%- for cert_file_name, cert_content in etcd.certs|dictsort %}
@@ -21,7 +21,7 @@
         {{ cert_content | indent(8) }}
     - mode: 640
     - user: root
-    - group: root
+    - group: {{ etcd.posix_group }}
     - require_in:
       - file: {{ etcd.config_file }}
 
