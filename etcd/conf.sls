@@ -27,3 +27,12 @@
 
 {%- endfor %}
 {%- endif %}
+
+etcd_service_running:
+  service.running:
+    - name: {{ etcd.service_name }}
+    - enable: {{ etcd.service_enabled }}
+    - require:
+      - {{ etcd.config_file }}
+    - watch:
+      - {{ etcd.config_file }}
