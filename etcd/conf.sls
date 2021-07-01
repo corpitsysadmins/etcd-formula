@@ -11,3 +11,19 @@
     - mode: 644
     - user: root
     - group: root
+
+{% if (etcd.certs is defined) and etcd.certs|length -%}
+{%- for cert_file_name, cert_content in etcd.certs|dictsort %}
+
+{{ cert_file_name }}:
+  file.managed:
+    - contents: |
+        {{ cert_content | indent(8) }}
+    - mode: 640
+    - user: root
+    - group: root
+    - require_in:
+      - file: {{ etcd.config_file }}
+
+{%- endfor %}
+{%- endif %}
